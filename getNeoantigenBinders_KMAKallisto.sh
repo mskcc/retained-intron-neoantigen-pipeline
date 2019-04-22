@@ -44,7 +44,7 @@ PAT_DIR=$(cat $patient_dir | head -n $SGE_TASK_ID | tail -n 1)
 # ( Splits aggregate KMA output into patient-specific KMA output )
 
 echo 'Running splitKMA.py.'
-python /xchip/cga_home/margolis/retainedIntron/goldStandard/splitKMA_KMAKallisto.py /xchip/cga_home/asmart/KMA/VA_Mel_IPI/160822_VA_Mel_IPI_KMA_IR_flat_filtered_ex41_v1.csv $PAT_DIR $PAT_DIR/kma_results.txt
+python /ifs/work/bergerm1/RNAseq/tools/retained-intron-neoantigen-pipeline/splitKMA_KMAKallisto.py /xchip/cga_home/asmart/KMA/VA_Mel_IPI/160822_VA_Mel_IPI_KMA_IR_flat_filtered_ex41_v1.csv $PAT_DIR $PAT_DIR/kma_results.txt
 
 # ----------------------------------------------------------------------------------------------- #
 
@@ -53,7 +53,7 @@ python /xchip/cga_home/margolis/retainedIntron/goldStandard/splitKMA_KMAKallisto
 # ( Converts kma output into FASTA peptide files for each retained intron )
 
 echo 'Running kmaToPeptideSeqs.py.'
-python /xchip/cga_home/margolis/retainedIntron/goldStandard/kmaToPeptideSeqs.py $PAT_DIR/kma_results.txt 9 $PAT_DIR
+python /ifs/work/bergerm1/RNAseq/tools/retained-intron-neoantigen-pipeline/kmaToPeptideSeqs.py $PAT_DIR/kma_results.txt 9 $PAT_DIR
 
 # ----------------------------------------------------------------------------------------------- #
 
@@ -62,7 +62,7 @@ python /xchip/cga_home/margolis/retainedIntron/goldStandard/kmaToPeptideSeqs.py 
 # ( Runs netMHCpan with retained-intron peptides and HLA-alleles specific to each patient )
 
 echo 'Running runNetMHCpan.py.'
-python /xchip/cga_home/margolis/retainedIntron/goldStandard/runNetMHCpan.py $PAT_DIR/peptideSeqsFASTA.txt ../$PAT_DIR/hla_alleles.txt $PAT_DIR
+python /ifs/work/bergerm1/RNAseq/tools/retained-intron-neoantigen-pipeline/runNetMHCpan.py $PAT_DIR/peptideSeqsFASTA.txt ../$PAT_DIR/hla_alleles.txt $PAT_DIR
 
 # ----------------------------------------------------------------------------------------------- #
 
@@ -71,7 +71,7 @@ python /xchip/cga_home/margolis/retainedIntron/goldStandard/runNetMHCpan.py $PAT
 # ( Processes netMHCpan output file to a more user-friendly, relevant format )
 
 echo 'Running postprocessOutput.py.'
-python /xchip/cga_home/margolis/retainedIntron/goldStandard/postprocessOutput.py $PAT_DIR/NETMHCpan_out.xls $PAT_DIR/headermap.txt $PAT_DIR $PAT_DIR
+python /ifs/work/bergerm1/RNAseq/tools/retained-intron-neoantigen-pipeline/postprocessOutput.py $PAT_DIR/NETMHCpan_out.xls $PAT_DIR/headermap.txt $PAT_DIR $PAT_DIR
 
 # ----------------------------------------------------------------------------------------------- #
 
@@ -80,6 +80,6 @@ python /xchip/cga_home/margolis/retainedIntron/goldStandard/postprocessOutput.py
 # ( Takes previous step output for all patients and aggregates into one document for whole cohort )
 
 #echo 'Running aggregateSampleInfo.py.'
-#python /xchip/cga_home/margolis/retainedIntron/goldStandard/aggregateSampleInfo.py patientnamesandresults.txt /xchip/cga_home/____/patientDirs CohortName /xchip/cga_home/____/outfilepath
+#python /ifs/work/bergerm1/RNAseq/tools/retained-intron-neoantigen-pipeline/aggregateSampleInfo.py patientnamesandresults.txt /xchip/cga_home/____/patientDirs CohortName /xchip/cga_home/____/outfilepath
 
 # ----------------------------------------------------------------------------------------------- #

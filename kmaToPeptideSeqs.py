@@ -169,7 +169,7 @@ def getSeqs(intronlocs, tpms, nAAs, outpath):
 		# Get genomic sequence
 		loc = chrom + ':' + str(wholeseqstart) + '-' + str(wholeseqend)
 		loc = '-seq='+loc
-		twobitoutput = (subprocess.check_output(['/xchip/cga_home/margolis/Packages/tableBrowser/twoBitToFa',
+		twobitoutput = (subprocess.check_output(['/ifs/work/bergerm1/RNAseq/tools/twoBitToFa/twoBitToFa',
                         loc,'/xchip/cga_home/margolis/General/hg19.2bit','stdout']))
                 # Parse output
 		seqlist = twobitoutput.split('\n')
